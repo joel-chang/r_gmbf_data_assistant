@@ -1,0 +1,53 @@
+Lots of corner cases.
+
+Example 1:
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title: 20 M 176 5’10”
+Body Fat: empty
+Age: empty
+Sex: M
+Height: 5’10”
+Weight: empty
+['20', 'M', '176', '5’10”']
+
+Here we could assume that 20 is age, and 176 is weight. 
+1. Maybe we can assume that any title token with no unit and under 50 is age.
+2. Maybe we can assume that any title token with no unit, over 50 and under 300 is weight is pounds.
+
+(1) I believe might be okay, but (2) is problematic, since it could also be kilos.
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title: 6ft1 170lb - 210lb (lockdown did a number😂)
+Body Fat: empty
+Age: empty
+Sex: empty
+Height: 6ft1
+Weight: 210lb
+['6ft1', '170lb', '-', '210lb', '(lockdown', 'did', 'a', 'number😂)']
+
+This is probably just a gallery, which would explain the weight range.
+Sounds like a future me problem.
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title: 35f 5’11 145-150
+Body Fat: empty
+Age: empty
+Sex: empty
+Height: 5’11
+Weight: empty
+['35f', '5’11', '145-150']
+
+Probably a galery again, also age and sex are also given, and I believe
+that this is a common format ( INT<F,M> )
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Title: estimates? 6’5 248 22, 18 weeks out
+Body Fat: empty
+Age: empty
+Sex: empty
+Height: 6’5
+Weight: empty
+['estimates?', '6’5', '248', '22,', '18', 'weeks', 'out']
+
+The weight assumption previously mentioned would work here as well.
