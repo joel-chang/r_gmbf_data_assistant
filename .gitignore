@@ -2,3 +2,6 @@ bin/
 lib/
 lib64
 pyvenv.cfg
+log.txt
+praw_cred.json
+__pycache__
