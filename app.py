@@ -8,11 +8,14 @@ from utils import printProgressBar
 import time
 from datetime import datetime
 
-reddit = praw.Reddit(client_id='',
-                     client_secret='',
-                     username='',
-                     password='',
-                     user_agent='')
+
+pc = json.load(open("praw_cred.json", 'r'))
+
+reddit = praw.Reddit(client_id=pc['client_id'],
+                     client_secret=pc['client_secret'],
+                     username=pc['username'],
+                     password=pc['password'],
+                     user_agent=pc['user_agent'])
 
 subreddit = reddit.subreddit('guessmybf')
 
