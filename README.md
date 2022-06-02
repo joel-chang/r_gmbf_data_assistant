@@ -12,6 +12,10 @@ In this repo, the following features are available:
 ## Purpose
 I will be using this to try and train a model which can predict body fat percentage. (I haven't seen this before, so I guess I'm good.)
 
+## Dependencies
+* PRAW
+```pip install praw```
+
 ## Limitations
 * Skillz
 * School and work is hard, life is hard
