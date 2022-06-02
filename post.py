@@ -23,11 +23,15 @@ def download_gallery_reddit(_id):
     from app import reddit
     post = reddit.submission(_id)
     gallery = []
-    for i in post.media_metadata.items():
-        url = i[1]['p'][0]['u']
-        url = url.split("?")[0].replace("preview", "i")
-        gallery.append(url)
-        header = {'user-agent': 'python:img-downloader:0.1'}
+    try:
+        for i in post.media_metadata.items():
+            url = i[1]['p'][0]['u']
+            url = url.split("?")[0].replace("preview", "i")
+            gallery.append(url)
+            header = {'user-agent': 'python:img-downloader:0.1'}
+    except AttributeError as ae:
+        print(f'Error found with id {_id}!')
+        print(ae)
 
     for i, img in enumerate(gallery):
         req = requests.get(img, headers=header)
