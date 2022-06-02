@@ -19,7 +19,7 @@ reddit = praw.Reddit(client_id=pc['client_id'],
 
 subreddit = reddit.subreddit('guessmybf')
 
-max_posts = 800
+max_posts = 1600
 min_comments = 1
 hot_python = subreddit.top("all", limit=max_posts)
 
@@ -36,7 +36,7 @@ with open(log_path, 'w') as f:
     f.write(f"min_comments: {min_comments}")
 
 for ii, submission in enumerate(hot_python):
-    print(f"\nCurrently at submission #{ii}/{len(hot_python)}.")
+    print(f"\nCurrently at submission #{ii}.")
     if not submission.stickied:
         print("Current submission ID: " + str(submission.id))
         comments = submission.comments.list()
