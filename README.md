@@ -14,7 +14,9 @@ I will be using this to try and train a model which can predict body fat percent
 
 ## Dependencies
 * PRAW
-```pip install praw```
+```
+pip install praw
+```
 
 ## Limitations
 * Skillz
