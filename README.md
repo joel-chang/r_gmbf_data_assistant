@@ -26,6 +26,14 @@ Issue the command:
 python app.py
 ```
 
+## Examples
+
+valid_posts.json and log.txt output files.
+<figure>
+    <img src="examples/json_example.png" width="360"/>
+    <img src="examples/log_example.png" width="360"/>
+</figure>
+
 ## Limitations
 * Skillz
 * School and work is hard, life is hard
@@ -36,3 +44,5 @@ python app.py
 * Learn some regex? I'm not really sure if it would be useful, and I kinda like how the data population file looks like.
 * Documentation, I'm kinda forgetting what everything does.
 * Upload some example pictures.
+
+.json file output
