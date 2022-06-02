@@ -19,8 +19,9 @@ reddit = praw.Reddit(client_id=pc['client_id'],
 
 subreddit = reddit.subreddit('guessmybf')
 
-max_posts = 20
-hot_python = subreddit.top(limit=max_posts)
+max_posts = 800
+min_comments = 1
+hot_python = subreddit.top("all", limit=max_posts)
 
 possible = DataPopulation()
 
@@ -30,16 +31,21 @@ valid_posts = {}
 log_path = 'log.txt'
 with open(log_path, 'w') as f:
     f.write(f'LOG CREATION: {datetime.now()}\n\n')
+    f.write(f"Parameters:")
+    f.write(f"max_posts: {max_posts}")
+    f.write(f"min_comments: {min_comments}")
 
 for ii, submission in enumerate(hot_python):
+    print(f"\nCurrently at submission #{ii}/{len(hot_python)}.")
     if not submission.stickied:
+        print("Current submission ID: " + str(submission.id))
         comments = submission.comments.list()
         title_info = TitleChecker(submission.title)
-        if title_info.is_valid and len(comments) > 5:
+        if title_info.is_valid and len(comments) >= min_comments:
             bf_votes = []
             for comment in comments:
                 for bf in possible.bfs:
-                    if comment.body.find(bf) != -1:
+                    if hasattr(comment, 'body') and comment.body.find(bf) != -1:
                         bf_votes.append(''.join(filter(str.isdigit, bf)))
                         # bf_votes.append([bf, comment.body]) # to see the vote's source comment
             votes_list = {}
@@ -65,6 +71,14 @@ for ii, submission in enumerate(hot_python):
                                           "file_name": valid_post.file_name,
                                           "votes": valid_post.votes
                                           }
+        else:
+            if len(comments) < min_comments:
+                print(f"Submission #{ii} ID: {submission.id} has less than {min_comments}.")
+            if not title_info.is_valid:
+                print("Title info is not valid.")
+                #title_info.print_info()
+
+
     # printProgressBar(ii, max_posts)
 
 with open('valid_posts.json', 'w') as f:
