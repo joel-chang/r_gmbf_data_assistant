@@ -38,7 +38,7 @@ class TitleChecker:
         self.sex = "empty"
         for sex_word in possible.sex_word:
             if sex_word in self.title:
-                self.sex = sex_word[0].upper()
+                self.sex = sex_word
         for tok in self.title_tok:
             for sex in possible.sex:
                 if sex == tok:
