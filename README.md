@@ -18,6 +18,14 @@ I will be using this to try and train a model which can predict body fat percent
 pip install praw
 ```
 
+## To run
+Git clone this repository.
+Cd into r_gmbf_data_assistant.
+Issue the command:
+```
+python app.py
+```
+
 ## Limitations
 * Skillz
 * School and work is hard, life is hard
