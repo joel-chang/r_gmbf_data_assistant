@@ -46,7 +46,7 @@ class DataPopulation:
             self.ages.append(f"{i}yo")
 
         # for sex
-        self.sex = ['f', 'F', 'm', 'M'] 
+        self.sex = ['f', 'F', 'm', 'M', '[M]', '[F]', '(F)', '(M)'] 
         self.sex_word = ['male', 'Male', 'female', 'Female']
 
 
