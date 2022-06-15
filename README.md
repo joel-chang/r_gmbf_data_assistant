@@ -39,10 +39,10 @@ valid_posts.json and log.txt output files.
 * School and work is hard, life is hard
 
 ## TODO
-* Create a separate file for user input, instead of just having everything in app.py, as I almost forgot to remove my personal info.
+* ~~Create a separate file for user input, instead of just having everything in app.py, as I almost forgot to remove my personal info.~~ DONE
 * Maybe I can build a simple tool to manually filter the results, since some links are galleries, with pictures from different angles, and I only plan to be able to predict BF percentage from the front. This could be some practice with qt.
 * Learn some regex? I'm not really sure if it would be useful, and I kinda like how the data population file looks like.
 * Documentation, I'm kinda forgetting what everything does.
-* Upload some example pictures.
+* ~~Upload some example pictures.~~ DONE
 
 .json file output
