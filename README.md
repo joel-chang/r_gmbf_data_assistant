@@ -1,7 +1,7 @@
 # GMBF Data Assistant
 
 ## Intro
-This is a "data assistant" for the *r/guessmybf* subreddit. It uses praw, urllib, and maybe some other stuff.
+This is a "data assistant" for [the *r/guessmybf* subreddit](https://www.reddit.com/r/guessmybf/). It uses praw, urllib, and maybe some other stuff.
 In this repo, the following features are available:
 * A scraper for use with r/guessmybf
 * A 'logger' of sorts, not very smart
