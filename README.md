@@ -11,7 +11,7 @@ In this repo, the following features are available:
 
 ## Potential use cases
 Trained a model using yolov5 and converted to tflite and tfjs web model.
-* https://github.com/melpeln/r_gmbf_data_assistant/tree/main/examples/tfjsYolov5 tfjs github pages website (got it from here: https://github.com/zldrobit/tfjs-yolov5-example).
+* https://github.com/melpeln/r_gmbf_data_assistant/tree/main/examples/tfjs Yolov5 tfjs github pages website (got it from here: https://github.com/zldrobit/tfjs-yolov5-example).
 * https://github.com/melpeln/r_gmbf_data_assistant/tree/main/examples/tflite Demo kotlin app (many tutorials online, different models, hence the latency variations).
 
 ## Dependencies
