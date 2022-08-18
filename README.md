@@ -9,8 +9,10 @@ In this repo, the following features are available:
     * That subreddit is not very heavily regulated, there is no standard format for the submissions.
     * You can check out some examples in the notes.txt file.
 
-## Purpose
-I will be using this to try and train a model which can predict body fat percentage. (I haven't seen this before, so I guess I'm good.)
+## Potential use cases
+Trained a model using yolov5 and converted to tflite and tfjs web model.
+https://github.com/melpeln/examples/tfjs Yolov5 tfjs github pages website (got it from here: https://github.com/zldrobit/tfjs-yolov5-example).
+https://github.com/melpeln/examples/tflite Demo kotlin app (many tutorials online, different models, hence the latency variations).
 
 ## Dependencies
 * PRAW
@@ -26,7 +28,7 @@ Issue the command:
 python app.py
 ```
 
-## Examples
+## Log examples
 
 valid_posts.json and log.txt output files.
 <figure>
