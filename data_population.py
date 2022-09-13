@@ -13,7 +13,7 @@ class DataPopulation:
         self.fmage = []
 
         # this seems like a common format as well
-        for i in range(16, 70):
+        for i in range(18, 70):
             self.fmage.append(f"{i}M")
             self.fmage.append(f"{i}F")
             self.fmage.append(f"M{i}")
