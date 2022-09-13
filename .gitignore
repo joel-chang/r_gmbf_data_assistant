@@ -5,3 +5,4 @@ pyvenv.cfg
 log.txt
 praw_cred.json
 __pycache__
+test_output.txt

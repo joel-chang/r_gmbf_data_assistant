@@ -82,3 +82,4 @@ class TitleChecker:
         res += f"   Height: {self.height}\n"
         res += f"   Weight: {self.weight}\n"
         return res
+
