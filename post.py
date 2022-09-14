@@ -1,4 +1,4 @@
-import praw, requests, re
+import requests
 import urllib.request as ur
 import time
 import json
@@ -7,9 +7,10 @@ from datetime import datetime
 
 download_dir = "img/"
 
+
 def download_reddit(_url, _file_name):
     r = requests.get(_url)
-    with open(download_dir + _file_name,"wb") as f:
+    with open(download_dir + _file_name, "wb") as f:
         f.write(r.content)
 
 
@@ -18,6 +19,7 @@ def download_imgur(_url, _fpath):
     f = open(download_dir + _fpath, 'wb')
     f.write(contents.read())
     f.close()
+
 
 def download_gallery_reddit(submission):
     gallery = []
@@ -39,7 +41,7 @@ def download_gallery_reddit(submission):
 
 
 class BFpost:
-    
+
     def __init__(self, _submission, _title_info, _votes,) -> None:
         self.id = _submission.id
         self.info = _title_info
@@ -51,8 +53,8 @@ class BFpost:
         elif "gallery" in self.url:
             download_gallery_reddit(_submission)
         else:
-            download_reddit(self.url, self.file_name)        
-    
+            download_reddit(self.url, self.file_name)
+
     def print_post_info(self):
         print(50*"==")
         print(f"Post ID: {self.id}")
@@ -67,12 +69,10 @@ class BFpost:
         print(50*"==")
         print(" ")
 
-
-
     def log_post(self, dest):
         log_entry = '\n'
         log_entry += str(datetime.now().time())
-        log_entry += "\n"+20*"=="+'\n' #r/badcode
+        log_entry += "\n"+20*"=="+'\n'  # r/badcode
         log_entry += f"Post ID: {self.id}\n"
         log_entry += "Post INFO:\n"
         log_entry += self.info.get_info()
@@ -86,4 +86,3 @@ class BFpost:
 
         with open(dest, 'a') as f:
             f.write(log_entry)
-

@@ -31,7 +31,7 @@ class DataAssistant:
         max_posts = self.max_posts
         min_comments = self.min_comments
         sort_method = self.sort_method
-        hot_python = subreddit.top(self.sort_method, limit=max_posts)
+        hot_python = subreddit.top(sort_method, limit=max_posts)
         log_path = self.log_path
 
         possible = DataPopulation()
@@ -59,7 +59,8 @@ class DataAssistant:
                 continue
             # ignore posts with insufficient comments
             if len(comments) < min_comments:
-                print(f"Submission #{ii} ID: {submission.id} has less than {min_comments}.")
+                print(
+                    f"Submission #{ii} ID: {submission.id} has less than {min_comments}.")
                 continue
 
             # find mentions of body fat in each comment
@@ -70,7 +71,7 @@ class DataAssistant:
                     if hasattr(comment, 'body') and comment.body.find(bf) != -1:
                         bf_votes.append(''.join(filter(str.isdigit, bf)))
                         # bf_votes.append([bf, comment.body]) # to see the vote's source comment
-            
+
             votes_list = Counter(bf_votes)
             if len(votes_list) == 0:
                 continue
@@ -94,6 +95,7 @@ class DataAssistant:
         with open('valid_posts.json', 'w') as f:
             print(f'Number of json file entries: {len(valid_posts)}')
             json.dump(valid_posts, f, indent=4)
+
 
 if __name__ == "__main__":
     print('running file directly')
