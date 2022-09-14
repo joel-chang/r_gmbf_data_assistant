@@ -1,5 +1,4 @@
-
-#regex would probably be better for this
+# regex would probably be better for this
 # first percentages
 
 class DataPopulation:
@@ -19,12 +18,11 @@ class DataPopulation:
             self.fmage.append(f"M{i}")
             self.fmage.append(f"F{i}")
 
-
         # create possible body fat
-        for i in range(4, 10): # why? because if it's stupid but it works, then it's stupid but it works
-            self.bfs.append(f" {i}%") # it fixes dealing with single digit percentages 
+        for i in range(4, 10):  # why? because if it's stupid but it works, then it's stupid but it works
+            self.bfs.append(f" {i}%")  # it fixes dealing with single digit percentages 
             self.bfs.append(f" {i} %") 
-            self.bfs.append(f" {i}ish") # e.g. won't think that 18% is both 18% and 8%
+            self.bfs.append(f" {i}ish")  # e.g. won't think that 18% is both 18% and 8%
         for i in range(10, 40):
             self.bfs.append(f"{i}%")
             self.bfs.append(f"{i} %") 
@@ -53,8 +51,8 @@ class DataPopulation:
         # retard units
         for i in range(4, 8):
             self.heights.append(f"{i}'")
-            self.heights.append(f"{i}’") # damn you tildes
-            self.heights.append(f"{i}”") # just ”murica things
+            self.heights.append(f"{i}’")  # damn you tildes
+            self.heights.append(f"{i}”")  # just ”murica things
             self.heights.append(f"{i}ft")
             self.heights.append(f"{i} ft")
             for j in range(0, 13):
