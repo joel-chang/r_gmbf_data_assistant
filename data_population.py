@@ -20,8 +20,8 @@ class DataPopulation:
 
         # create possible body fat
         for i in range(4, 10):  # why? because if it's stupid but it works, then it's stupid but it works
-            self.bfs.append(f" {i}%")  # it fixes dealing with single digit percentages 
-            self.bfs.append(f" {i} %") 
+            self.bfs.append(f" {i}%")  # it fixes dealing with single digit percentages
+            self.bfs.append(f" {i} %")
             self.bfs.append(f" {i}ish")  # e.g. won't think that 18% is both 18% and 8%
         for i in range(10, 40):
             self.bfs.append(f"{i}%")
@@ -44,9 +44,8 @@ class DataPopulation:
             self.ages.append(f"{i}yo")
 
         # for sex
-        self.sex = ['f', 'F', 'm', 'M', '[M]', '[F]', '(F)', '(M)'] 
+        self.sex = ['f', 'F', 'm', 'M', '[M]', '[F]', '(F)', '(M)']
         self.sex_word = ['male', 'Male', 'female', 'Female']
-
 
         # retard units
         for i in range(4, 8):

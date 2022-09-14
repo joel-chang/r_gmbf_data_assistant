@@ -1,5 +1,6 @@
 from data_population import DataPopulation
 
+
 possible = DataPopulation()
 
 class TitleChecker:
@@ -27,7 +28,7 @@ class TitleChecker:
         for bf in possible.bfs:
             if bf in self.title:
                 self.body_fat = ''.join(filter(str.isdigit, bf))
-    
+
     def check_age(self):
         self.age = "empty"
         for age in possible.ages:
@@ -49,7 +50,7 @@ class TitleChecker:
         for height in possible.heights:
             if height in self.title:
                 self.height = height
-    
+
     def check_weight(self):
         self.weight = "empty"
         for weight in possible.weights:
@@ -59,12 +60,12 @@ class TitleChecker:
     def is_useful(self):
         points = 5
         points -= 1 if self.body_fat == 'empty' else 0
-        points -= 1 if self.age == 'empty' else 0            
+        points -= 1 if self.age == 'empty' else 0
         points -= 1 if self.sex == 'empty' else 0
         points -= 1 if self.height == 'empty' else 0
         points -= 1 if self.weight == 'empty' else 0
         return True if points else False
-    
+
     def print_info(self):
         print(f"Title: {self.title}")
         print(f"Body Fat: {self.body_fat}")
@@ -82,4 +83,3 @@ class TitleChecker:
         res += f"   Height: {self.height}\n"
         res += f"   Weight: {self.weight}\n"
         return res
-
