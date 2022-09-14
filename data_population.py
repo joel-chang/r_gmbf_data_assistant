@@ -25,7 +25,7 @@ class DataPopulation:
             self.bfs.append(f" {i}ish")  # e.g. won't think that 18% is both 18% and 8%
         for i in range(10, 40):
             self.bfs.append(f"{i}%")
-            self.bfs.append(f"{i} %") 
+            self.bfs.append(f"{i} %")
             self.bfs.append(f"{i}ish")
 
         # for age

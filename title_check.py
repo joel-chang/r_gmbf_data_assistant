@@ -3,6 +3,7 @@ from data_population import DataPopulation
 
 possible = DataPopulation()
 
+
 class TitleChecker:
     def __init__(self, _title):
         self.title = _title
