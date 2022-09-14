@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import Counter
 import praw
 import json
 from post import BFpost
@@ -36,25 +36,29 @@ with open(log_path, 'w') as f:
 for ii, submission in enumerate(hot_python):
     print(f"\nCurrently at submission #{ii}.")
     if submission.stickied:
+        # ignore stickied posts
         continue
     print("Current submission ID: " + str(submission.id))
     comments = submission.comments.list()
     title_info = TitleChecker(submission.title)
     if not title_info.is_valid:
+        # ignore posts with insufficient title data
         print("Title info is not valid.")
         continue
     if len(comments) < min_comments:
+        # ignore posts with insufficient comments
         print(f"Submission #{ii} ID: {submission.id} has less than {min_comments}.")
         continue
+
+    # find mentions of body fat in each comment
     bf_votes = []
     for comment in comments:
         for bf in possible.bfs:
             if hasattr(comment, 'body') and comment.body.find(bf) != -1:
                 bf_votes.append(''.join(filter(str.isdigit, bf)))
                 # bf_votes.append([bf, comment.body]) # to see the vote's source comment
-    votes_list = defaultdict(int)
-    for vote in bf_votes:
-        votes_list[vote] += 1
+    
+    votes_list = Counter(bf_votes)
     if len(votes_list) == 0:
         continue
 
