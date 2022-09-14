@@ -6,3 +6,5 @@ log.txt
 praw_cred.json
 __pycache__
 test_output.txt
+valid_posts.json
+praw_cred.json

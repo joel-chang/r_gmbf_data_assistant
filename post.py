@@ -19,39 +19,37 @@ def download_imgur(_url, _fpath):
     f.write(contents.read())
     f.close()
 
-def download_gallery_reddit(_id):
-    from app import reddit
-    post = reddit.submission(_id)
+def download_gallery_reddit(submission):
     gallery = []
     try:
-        for i in post.media_metadata.items():
+        for i in submission.media_metadata.items():
             url = i[1]['p'][0]['u']
             url = url.split("?")[0].replace("preview", "i")
             gallery.append(url)
             header = {'user-agent': 'python:img-downloader:0.1'}
     except AttributeError as ae:
-        print(f'Error found with id {_id}!')
+        print(f'Error found with id {submission.id}!')
         print(ae)
 
     for i, img in enumerate(gallery):
         req = requests.get(img, headers=header)
-        with open(download_dir + _id + '_' + str(i) + '.jpg', 'wb') as f:
+        with open(download_dir + submission.id + '_' + str(i) + '.jpg', 'wb') as f:
             f.write(req.content)
             time.sleep(0.5)
 
 
 class BFpost:
     
-    def __init__(self, _id, _title_info, _votes,  _url) -> None:
-        self.id = _id
+    def __init__(self, _submission, _title_info, _votes,) -> None:
+        self.id = _submission.id
         self.info = _title_info
         self.votes = _votes
-        self.url = _url
+        self.url = _submission.url
         self.file_name = self.id + ".jpg"
         if "imgur" in self.url:
             download_imgur(self.url, self.file_name)
         elif "gallery" in self.url:
-            download_gallery_reddit(self.id)
+            download_gallery_reddit(_submission)
         else:
             download_reddit(self.url, self.file_name)        
     
