@@ -6,7 +6,7 @@ def get_oneline_info(cur):
     return res
 
 def test_data_pop():
-    file = open("test_log.txt", "r")
+    file = open("tests/test_log.txt", "r")
 
     lines = file.readlines()
     file.close()
@@ -17,11 +17,11 @@ def test_data_pop():
         new+=f'{get_oneline_info(cur)}\n'
 
 
-    with open('test_output.txt', 'w') as f:
+    with open('tests/test_output.txt', 'w') as f:
         f.write(new)
 
-    expected = open("test_expected_result.txt", 'r')
-    actual = open("test_output.txt", "r")
+    expected = open("tests/test_expected_result.txt", 'r')
+    actual = open("tests/test_output.txt", "r")
 
 
     expected_lines = expected.readlines()
