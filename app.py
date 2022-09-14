@@ -1,11 +1,9 @@
+from collections import defaultdict
 import praw
-import re
 import json
 from post import BFpost
 from title_check import TitleChecker
 from data_population import DataPopulation
-from utils import printProgressBar
-import time
 from datetime import datetime
 
 
@@ -31,7 +29,7 @@ valid_posts = {}
 log_path = 'log.txt'
 with open(log_path, 'w') as f:
     f.write(f'LOG CREATION: {datetime.now()}\n\n')
-    f.write(f"Parameters:")
+    f.write("Parameters:")
     f.write(f"max_posts: {max_posts}")
     f.write(f"min_comments: {min_comments}")
 
@@ -49,12 +47,9 @@ for ii, submission in enumerate(hot_python):
                 if hasattr(comment, 'body') and comment.body.find(bf) != -1:
                     bf_votes.append(''.join(filter(str.isdigit, bf)))
                     # bf_votes.append([bf, comment.body]) # to see the vote's source comment
-        votes_list = {}
+        votes_list = defaultdict(int)
         for vote in bf_votes:
-            if vote in votes_list:
-                votes_list[vote] += 1
-            else:
-                votes_list[vote] = 1
+            votes_list[vote] += 1
         if len(votes_list) == 0:
             continue
 
@@ -62,23 +57,24 @@ for ii, submission in enumerate(hot_python):
                             votes_list, submission.url)
         valid_post.print_post_info()
         valid_post.log_post(log_path)
-        valid_posts[submission.id] = {"title": submission.title,
-                                        "url": submission.url,
-                                        "body_fat": title_info.body_fat,
-                                        "age": title_info.age,
-                                        "sex": title_info.sex,
-                                        "height": title_info.height,
-                                        "weight": title_info.weight,
-                                        "file_name": valid_post.file_name,
-                                        "votes": valid_post.votes
-                                        }
+        valid_posts[submission.id] = {
+            "title": submission.title,
+            "url": submission.url,
+            "body_fat": title_info.body_fat,
+            "age": title_info.age,
+            "sex": title_info.sex,
+            "height": title_info.height,
+            "weight": title_info.weight,
+            "file_name": valid_post.file_name,
+            "votes": valid_post.votes
+        }
     else:
         if len(comments) < min_comments:
-            print(f"Submission #{ii} ID: {submission.id} has less than {min_comments}.")
+            print(
+                f"Submission #{ii} ID: {submission.id} has less than {min_comments}.")
         if not title_info.is_valid:
             print("Title info is not valid.")
-            #title_info.print_info()
-
+            # title_info.print_info()
 
     # printProgressBar(ii, max_posts)
 
