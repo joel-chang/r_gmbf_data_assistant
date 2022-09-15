@@ -5,6 +5,7 @@ from post import BFpost
 from title_check import TitleChecker
 from data_population import DataPopulation
 from datetime import datetime
+from utils import printProgressBar
 
 
 class DataAssistant:
@@ -46,21 +47,16 @@ class DataAssistant:
             f.write(f"min_comments: {min_comments}")
 
         for ii, submission in enumerate(hot_python):
-            print(f"\nCurrently at submission #{ii}.")
             if submission.stickied:
                 # ignore stickied posts
                 continue
-            print("Current submission ID: " + str(submission.id))
             comments = submission.comments.list()
             title_info = TitleChecker(submission.title)
             # ignore posts with insufficient title data
             if not title_info.is_valid:
-                print("Title info is not valid.")
                 continue
             # ignore posts with insufficient comments
             if len(comments) < min_comments:
-                print(
-                    f"Submission #{ii} ID: {submission.id} has less than {min_comments}.")
                 continue
 
             # find mentions of body fat in each comment
@@ -77,7 +73,7 @@ class DataAssistant:
                 continue
 
             valid_post = BFpost(submission, title_info, votes_list)
-            valid_post.print_post_info()
+            # valid_post.print_post_info()
             valid_post.log_post(log_path)
             valid_posts[submission.id] = {
                 "title": submission.title,
@@ -90,7 +86,7 @@ class DataAssistant:
                 "file_name": valid_post.file_name,
                 "votes": valid_post.votes
             }
-            # printProgressBar(ii, max_posts)
+            printProgressBar(ii, max_posts-1)
 
         with open('valid_posts.json', 'w') as f:
             print(f'Number of json file entries: {len(valid_posts)}')
@@ -98,7 +94,6 @@ class DataAssistant:
 
 
 if __name__ == "__main__":
-    print('running file directly')
     query = DataAssistant()
     query.load_parameters()
     query.load_cred_file()
