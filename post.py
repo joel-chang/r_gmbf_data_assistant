@@ -16,9 +16,8 @@ def download_reddit(_url, _file_name):
 
 def download_imgur(_url, _fpath):
     contents = ur.urlopen(_url)
-    f = open(download_dir + _fpath, 'wb')
-    f.write(contents.read())
-    f.close()
+    with open(download_dir + _fpath, 'wb') as f:
+        f.write(contents.read())
 
 
 def download_gallery_reddit(submission):
