@@ -1,9 +1,9 @@
 from collections import Counter
+from tabnanny import check
 import praw
 import json
 from post import BFpost
-from title_check import TitleChecker
-from data_population import DataPopulation
+from title_check import TitleChecker, check_body_fat
 from datetime import datetime
 from utils import printProgressBar
 
@@ -35,8 +35,6 @@ class DataAssistant:
         hot_python = subreddit.top(sort_method, limit=max_posts)
         log_path = self.log_path
 
-        possible = DataPopulation()
-
         person = {}
         valid_posts = {}
 
@@ -63,10 +61,12 @@ class DataAssistant:
             # this is dumb, should use regex
             bf_votes = []
             for comment in comments:
-                for bf in possible.bfs:
-                    if hasattr(comment, 'body') and comment.body.find(bf) != -1:
-                        bf_votes.append(''.join(filter(str.isdigit, bf)))
-                        # bf_votes.append([bf, comment.body]) # to see the vote's source comment
+                if not hasattr(comment, 'body'):
+                    continue
+                comm_bf = check_body_fat(comment.body)
+                if comm_bf != 'empty':
+                    bf_votes.append(''.join(filter(str.isdigit, comm_bf)))
+                    # bf_votes.append([bf, comment.body]) # to see the vote's source comment
 
             votes_list = Counter(bf_votes)
             if len(votes_list) == 0:
