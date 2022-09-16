@@ -2,10 +2,11 @@ from curses import flash
 import re
 
 
+# all of these could have more than one match, and i choose either the first or the last
+# could refactor these again, but i don't want to for now
 def check_body_fat(_str):
     # remember single digits
     # 18% 18bf bf:18 bf: 18 body fat: 18 bf18 %18 18ish "18 %"
-    # int_perc = re.compile(r'\d{1,2}\s??%|%\d{1,2}|\d{1,2}\s??bf|bf:??\s??\d{1,2}|\d{1,2}ish',flags=re.IGNORECASE).findall(_str)
     int_perc = re.compile(r'[^.^,]\d{1,2}[.,]?\d?\d?\s??%').findall(_str)
     perc_int = re.compile(r'%\d{1,2}').findall(_str)
     int_bf = re.compile(r'^[.,]\d{1,2}[.,]?\d?\d?\s??bf',flags=re.IGNORECASE).findall(_str)
@@ -13,8 +14,6 @@ def check_body_fat(_str):
 
     matches = int_bf + bf_int + int_perc + perc_int
 
-    # regex is the work of the devil
-    # if len(matches) > 1: print('WARNING: more than one match for body fat percentage found, continuing with last instance')
     if len(matches) == 0: 
         # print(f"WARNING: {_str} doesn't have body fat.")
         return 'empty'
@@ -30,7 +29,6 @@ def check_age(_str):
     s_xx = re.compile(r'[mf]\d\d').findall(_str)
 
     matches = xx_y + age_xx + xx_s + s_xx
-    # if len(matches) > 1: print('WARNING: more than one match for age found, going with the last instance')
     if len(matches) == 0:
         # print(f"WARNING: {_str} doesn't contain age.")
         return 'empty'
@@ -49,7 +47,6 @@ def check_sex(_str):
     mat7 = re.compile(r'^f^emale', flags=re.IGNORECASE).findall(_str)
 
     matches = mat1 + mat2 + mat3 + mat4 + mat5 + mat6 + mat7
-    # if len(matches) > 1: print('WARNING: more than one match for sex found, going with the last instance')
     if len(matches) == 0:
         # print(f"WARNING: {self.title} doesn't contain sex.")
         return 'empty'
@@ -70,7 +67,6 @@ def check_height(_str):
     m = re.compile(r'[1-2].[0-9][0-9]??\s?m', flags=re.IGNORECASE).findall(_str)
 
     matches = int_FTortilde_int_ + int_foot + m + cm + int_fft
-    # if len(matches) > 1: print('WARNING: more than one match for height found, going with the first instance')
     if len(matches) == 0:
         # print(f"WARNING: {self.title} doesn't contain height.")
         return 'empty'
@@ -83,7 +79,6 @@ def check_weight(_str):
     kilos = re.compile(r'\d\d\d??\s??k', flags=re.IGNORECASE).findall(_str)
 
     matches = pounds + kilos + lbs
-    # if len(matches) > 1: print('WARNING: more than one match for weight found, going with the first instance')
     if len(matches) == 0:
         # print(f"WARNING: {self.title} doesn't contain weight.")
         return 'empty'
