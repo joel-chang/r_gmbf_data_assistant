@@ -3,7 +3,7 @@ import re
 
 
 # all of these could have more than one match, and i choose either the first or the last
-# could refactor these again, but i don't want to for now
+# could refactor these again, but getting some problems passing list of raw strings
 def check_body_fat(_str):
     # remember single digits
     # 18% 18bf bf:18 bf: 18 body fat: 18 bf18 %18 18ish "18 %"
