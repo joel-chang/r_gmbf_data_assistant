@@ -10,7 +10,7 @@ def check_body_fat(_str):
     int_perc = re.compile(r'[^.^,]\d{1,2}[.,]?\d?\d?\s??%').findall(_str)
     perc_int = re.compile(r'%\d{1,2}').findall(_str)
     int_bf = re.compile(r'^[.,]\d{1,2}[.,]?\d?\d?\s??bf',flags=re.IGNORECASE).findall(_str)
-    bf_int = re.compile(r'bf:??\s??\d{1,2}\D',flags=re.IGNORECASE).findall(_str)
+    bf_int = re.compile(r'bf:?\s?\d\d\D',flags=re.IGNORECASE).findall(_str)
 
     matches = int_bf + bf_int + int_perc + perc_int
 

@@ -1,14 +1,27 @@
-from title_check import TitleChecker
+from title_check import (
+    check_body_fat,
+    check_age,
+    check_height,
+    check_sex,
+    check_weight
+)
 
 def test_body_fat():
-    samples = []
-    for i in range(4, 10):  # why? because if it's stupid but it works, then it's stupid but it works
-        samples.append(f" {i}%")  # it fixes dealing with single digit percentages
-        samples.append(f" {i} %")
-    for i in range(10, 40):
-        samples.append(f"{i}%")
-        samples.append(f"{i} %")
-    
-    for sample in samples:
-        cur_test = TitleChecker(sample)
-        assert cur_test.body_fat != 'empty'
+    tests = {
+        '1%'    :'empty',  # no one has 1% body fat, prevents 11%
+        '18%'   :'18',
+        '1 %'   :'empty',
+        '01%'   :'01',  # it's okay
+        '1'     :'empty',
+        'bf18 '  :'18',
+        'bf: 18 ':'18',
+        '18bf'  :'empty',  # in case of F18bf25%
+        '18.99%':'18'
+    }
+
+    for _input, _output in tests.items():
+        actual_output = check_body_fat(_input)
+        print(_input)
+        print(_output)
+        assert isinstance(actual_output, str), f'{_input}: expected string, got {type(actual_output)}'
+        assert actual_output == _output, f'{_input}: expected {_output}, got {actual_output}'
