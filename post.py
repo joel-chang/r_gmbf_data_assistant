@@ -3,6 +3,7 @@ import urllib.request as ur
 import time
 import json
 from datetime import datetime
+from collections import Counter
 
 
 download_dir = "img/"
@@ -44,7 +45,7 @@ class BFpost:
     def __init__(self, _submission, _title_info, _votes,) -> None:
         self.id = _submission.id
         self.info = _title_info
-        self.votes = _votes
+        self.votes = Counter(_votes)
         self.url = _submission.url
         self.file_name = self.id + ".jpg"
         if "imgur" in self.url:

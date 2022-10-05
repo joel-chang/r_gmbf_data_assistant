@@ -9,8 +9,8 @@ def check_body_fat(_str):
     # 18% 18bf bf:18 bf: 18 body fat: 18 bf18 %18 18ish "18 %"
     int_perc = re.compile(r'[^.^,]\d{1,2}[.,]?\d?\d?\s??%').findall(_str)
     perc_int = re.compile(r'%\d{1,2}').findall(_str)
-    int_bf = re.compile(r'^[.,]\d{1,2}[.,]?\d?\d?\s??bf',flags=re.IGNORECASE).findall(_str)
-    bf_int = re.compile(r'bf:?\s?\d\d\D',flags=re.IGNORECASE).findall(_str)
+    int_bf =   re.compile(r'^[.,]\d{1,2}[.,]?\d?\d?\s??bf',flags=re.IGNORECASE).findall(_str)
+    bf_int =   re.compile(r'bf:?\s?\d\d\D',flags=re.IGNORECASE).findall(_str)
 
     matches = int_bf + bf_int + int_perc + perc_int
 
@@ -23,10 +23,10 @@ def check_body_fat(_str):
 def check_age(_str):
     # more than 18 if possible
     # 32Y 32y F32 32F 32years "32 years old" age:32 age: 32 Age: 32 Age:32 "32 y" "32 Y"
-    xx_y = re.compile(r'\d\d\s??y', flags=re.IGNORECASE).findall(_str)
+    xx_y =   re.compile(r'\d\d\s??y', flags=re.IGNORECASE).findall(_str)
     age_xx = re.compile(r'age:\s??\d\d', flags=re.IGNORECASE).findall(_str)
-    xx_s = re.compile(r'\d\d\s??[fm]', flags=re.IGNORECASE).findall(_str)
-    s_xx = re.compile(r'[mf]\d\d').findall(_str)
+    xx_s =   re.compile(r'\d\d\s??[fm]', flags=re.IGNORECASE).findall(_str)
+    s_xx =   re.compile(r'[mf]\d\d').findall(_str)
 
     matches = xx_y + age_xx + xx_s + s_xx
     if len(matches) == 0:
