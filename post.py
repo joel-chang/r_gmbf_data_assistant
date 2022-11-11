@@ -61,35 +61,3 @@ class BFpost:
             download_gallery_reddit(_submission)
         else:
             download_reddit(self.url, self.file_name)
-
-    # def print_post_info(self):
-    #     print(50*"==")
-    #     print(f"Post ID: {self.id}")
-    #     print(" ")
-    #     print("Post INFO:")
-    #     self.info.print_info()
-    #     print("Post VOTES: ")
-    #     print(self.votes)
-    #     print(" ")
-    #     print("Post URL (for the images):")
-    #     print(self.url)
-    #     print(50*"==")
-    #     print(" ")
-
-    # def log_post(self, dest):
-    #     log_entry = '\n'
-    #     log_entry += str(datetime.now().time())
-    #     log_entry += "\n"+20*"=="+'\n'  # r/badcode
-    #     log_entry += f"Post ID: {self.id}\n"
-    #     log_entry += "Post INFO:\n"
-    #     log_entry += self.info.get_info()
-    #     log_entry += "Post VOTES: \n"
-    #     log_entry += json.dumps(self.votes, indent=4, sort_keys=True)
-    #     log_entry += "\n"
-    #     log_entry += "Post URL (for the images):\n"
-    #     log_entry += self.url
-    #     log_entry += "\n"+20*"=="+"\n"
-    #     log_entry += "\n"
-
-    #     with open(dest, 'a') as f:
-    #         f.write(log_entry)
