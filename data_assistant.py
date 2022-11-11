@@ -27,60 +27,72 @@ class DataAssistant:
                                   password=pc['password'],
                                   user_agent=pc['user_agent'])
 
-    def get_posts(self, max_posts, min_comments, sub_name='guessmybf', sort_method='all', log_path='log.txt'):
-        subreddit = self.reddit.subreddit(sub_name)
-        hot_python = subreddit.top(sort_method, limit=max_posts)
+    def parse_post(self, submission, min_comments):
+        # ignore stickied posts
+        if submission.stickied:
+            return None
+
+        # ignore posts with insufficient title data
+        title_info = TitleChecker(submission.title)
+        if title_info.is_useful() is False:
+            return None
+
+        # ignore submissions with insufficient comments
+        comments = submission.comments.list()
+        if len(comments) < min_comments:
+            return None
+
+        # collect mentions of body fat from post's comments
+        bf_votes = []
+        for comment in comments:
+            # ignore empty comments
+            if not hasattr(comment, 'body'):
+                continue
+
+            # ignore comments with no mention of body fat percentage
+            bf_mention_in_comment = check_body_fat(comment.body)
+            if bf_mention_in_comment == 'empty':
+                continue
+
+            bf_votes.append(''.join(filter(str.isdigit, bf_mention_in_comment)))
+            # bf_votes.append([bf, comment.body]) # to see the vote's source comment
+
+        # ignore posts/submissions with no mentions of body fat percentage in the comments
+        if len(bf_votes) == 0:
+            return None
+
+        return BFpost(submission, title_info, bf_votes)
+
+    def get_posts(self, max_posts, min_comments, sub_name='guessmybf', log_path='log.txt', time_range='all'):
+        print('Now running scraper with the following values:')
+        print(f'Max # of posts: {max_posts}')
+        print(f'Min number of comments a post should have: {min_comments}')
+        print(f'Name of target subreddit: {sub_name}')
+        print(f'Time_range: {time_range}')
+        print(f'Outputting logs to the following destination: {log_path}')
+
+        target_subreddit = self.reddit.subreddit(sub_name)
+        top_posts = target_subreddit.top(limit=max_posts, time_filter=time_range)
 
         valid_posts = {}
-        with open(log_path, 'w') as f:
-            f.write(f'LOG CREATION: {datetime.now()}\n\n')
-            f.write("Parameters:")
-            f.write(f"max_posts: {max_posts}")
-            f.write(f"min_comments: {min_comments}")
-
-        for ii, submission in enumerate(hot_python):
-            # ignore stickied posts
-            if submission.stickied:
+        for submission_index, submission in enumerate(top_posts):
+            valid_post = self.parse_post(submission, min_comments)
+            if not valid_post:
                 continue
-
-            # ignore submissions with insufficient comments
-            comments = submission.comments.list()
-            if len(comments) < min_comments:
-                continue
-            
-            # ignore posts with insufficient title data
-            title_info = TitleChecker(submission.title)
-            if not title_info.is_valid:
-                continue
-
-            bf_votes = []
-            for comment in comments:
-                # ignore empty comments
-                if not hasattr(comment, 'body'):
-                    continue
-                comm_bf = check_body_fat(comment.body)
-                if comm_bf != 'empty':
-                    bf_votes.append(''.join(filter(str.isdigit, comm_bf)))
-                    # bf_votes.append([bf, comment.body]) # to see the vote's source comment
-
-            if len(bf_votes) == 0:
-                continue
-
-            valid_post = BFpost(submission, title_info, bf_votes)
             # valid_post.print_post_info()
-            valid_post.log_post(log_path)
+            # valid_post.log_post(log_path)
             valid_posts[submission.id] = {
-                "title": submission.title,
-                "url": submission.url,
-                "body_fat": title_info.body_fat,
-                "age": title_info.age,
-                "sex": title_info.sex,
-                "height": title_info.height,
-                "weight": title_info.weight,
+                "title": valid_post.title,
+                "url": valid_post.url,
+                "body_fat": valid_post.body_fat,
+                "age": valid_post.age,
+                "sex": valid_post.sex,
+                "height": valid_post.height,
+                "weight": valid_post.weight,
                 "file_name": valid_post.file_name,
                 "votes": valid_post.votes
             }
-            printProgressBar(ii, max_posts-1)
+            printProgressBar(submission_index, max_posts-1)
 
         with open('valid_posts.json', 'w') as f:
             print(f'Number of json file entries: {len(valid_posts)}')

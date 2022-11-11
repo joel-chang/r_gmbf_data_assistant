@@ -43,11 +43,18 @@ def download_gallery_reddit(submission):
 class BFpost:
 
     def __init__(self, _submission, _title_info, _votes,) -> None:
-        self.id = _submission.id
-        self.info = _title_info
-        self.votes = Counter(_votes)
+        self.title = _submission.title
         self.url = _submission.url
+        self.body_fat = _title_info.body_fat
+        self.age = _title_info.age
+        self.sex = _title_info.sex
+        self.height = _title_info.height
+        self.weight = _title_info.weight
+        self.votes = Counter(_votes)
+        self.info = _title_info
+        self.id = _submission.id
         self.file_name = self.id + ".jpg"
+
         if "imgur" in self.url:
             download_imgur(self.url, self.file_name)
         elif "gallery" in self.url:
@@ -55,34 +62,34 @@ class BFpost:
         else:
             download_reddit(self.url, self.file_name)
 
-    def print_post_info(self):
-        print(50*"==")
-        print(f"Post ID: {self.id}")
-        print(" ")
-        print("Post INFO:")
-        self.info.print_info()
-        print("Post VOTES: ")
-        print(self.votes)
-        print(" ")
-        print("Post URL (for the images):")
-        print(self.url)
-        print(50*"==")
-        print(" ")
+    # def print_post_info(self):
+    #     print(50*"==")
+    #     print(f"Post ID: {self.id}")
+    #     print(" ")
+    #     print("Post INFO:")
+    #     self.info.print_info()
+    #     print("Post VOTES: ")
+    #     print(self.votes)
+    #     print(" ")
+    #     print("Post URL (for the images):")
+    #     print(self.url)
+    #     print(50*"==")
+    #     print(" ")
 
-    def log_post(self, dest):
-        log_entry = '\n'
-        log_entry += str(datetime.now().time())
-        log_entry += "\n"+20*"=="+'\n'  # r/badcode
-        log_entry += f"Post ID: {self.id}\n"
-        log_entry += "Post INFO:\n"
-        log_entry += self.info.get_info()
-        log_entry += "Post VOTES: \n"
-        log_entry += json.dumps(self.votes, indent=4, sort_keys=True)
-        log_entry += "\n"
-        log_entry += "Post URL (for the images):\n"
-        log_entry += self.url
-        log_entry += "\n"+20*"=="+"\n"
-        log_entry += "\n"
+    # def log_post(self, dest):
+    #     log_entry = '\n'
+    #     log_entry += str(datetime.now().time())
+    #     log_entry += "\n"+20*"=="+'\n'  # r/badcode
+    #     log_entry += f"Post ID: {self.id}\n"
+    #     log_entry += "Post INFO:\n"
+    #     log_entry += self.info.get_info()
+    #     log_entry += "Post VOTES: \n"
+    #     log_entry += json.dumps(self.votes, indent=4, sort_keys=True)
+    #     log_entry += "\n"
+    #     log_entry += "Post URL (for the images):\n"
+    #     log_entry += self.url
+    #     log_entry += "\n"+20*"=="+"\n"
+    #     log_entry += "\n"
 
-        with open(dest, 'a') as f:
-            f.write(log_entry)
+    #     with open(dest, 'a') as f:
+    #         f.write(log_entry)
